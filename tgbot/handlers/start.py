@@ -7,7 +7,6 @@ from infrastructure.database import db
 db = db.DataBase()
 
 start_router = Router()
-start_router.message.filter()
 
 
 @start_router.message(CommandStart())
