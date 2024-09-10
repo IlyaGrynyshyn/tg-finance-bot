@@ -4,8 +4,11 @@ from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.utils.formatting import as_section, as_key_value, as_marked_list
 
-from tgbot.keyboards.inline import simple_menu_keyboard, my_orders_keyboard, \
-    OrderCallbackData
+from tgbot.keyboards.inline import (
+    simple_menu_keyboard,
+    my_orders_keyboard,
+    OrderCallbackData,
+)
 
 menu_router = Router()
 
@@ -40,8 +43,9 @@ ORDERS = [
 @menu_router.callback_query(F.data == "my_orders")
 async def my_orders(query: CallbackQuery):
     await query.answer()
-    await query.message.edit_text("Ви обрали перегляд ваших замовлень!",
-                                  reply_markup=my_orders_keyboard(ORDERS))
+    await query.message.edit_text(
+        "Ви обрали перегляд ваших замовлень!", reply_markup=my_orders_keyboard(ORDERS)
+    )
 
 
 # To filter the callback data, that was created with CallbackData factory, you can use .filter() method

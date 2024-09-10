@@ -17,12 +17,12 @@ class DataBase:
         return self.connection.cursor()
 
     def execute(
-            self,
-            sql: str,
-            parameters: tuple = None,
-            fetchone=False,
-            fetchall=False,
-            commit=False,
+        self,
+        sql: str,
+        parameters: tuple = None,
+        fetchone=False,
+        fetchall=False,
+        commit=False,
     ):
         if not parameters:
             parameters = tuple()
@@ -56,13 +56,13 @@ class DataBase:
         return self.execute(sql=sql, commit=True)
 
     def add_user(
-            self,
-            telegram_id: int,
-            name: str,
-            phone: int = None,
-            email: str = None,
-            username: str = None,
-            date: datetime = None,
+        self,
+        telegram_id: int,
+        name: str,
+        phone: int = None,
+        email: str = None,
+        username: str = None,
+        date: datetime = None,
     ):
         sql = "INSERT INTO Users(telegram_id, name, phone, email, username, date) VALUES (?,?,?,?,?,?)"
         parameters = (telegram_id, name, phone, email, username, date)
@@ -77,8 +77,8 @@ class DataBase:
 
     def check_db(self):
         if self.execute(
-                "SELECT name FROM sqlite_master " "WHERE type='table' AND name='expense'",
-                fetchall=True,
+            "SELECT name FROM sqlite_master " "WHERE type='table' AND name='expense'",
+            fetchall=True,
         ):
             return
         self._init_db()
@@ -102,7 +102,7 @@ class DataBase:
         return self.execute(sql, fetchone=True)
 
     def add_expense(
-            self, owner: str, amount: int, created, category_codename: str, raw_text: str
+        self, owner: str, amount: int, created, category_codename: str, raw_text: str
     ):
         sql = """
         INSERT INTO expense(owner, amount, created, category_codename, raw_text ) VALUES (?, ?, ?, ?, ? )

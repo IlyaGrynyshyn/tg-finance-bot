@@ -6,6 +6,7 @@ from aiogram.types import ErrorEvent
 
 router = Router()
 
+
 class NotCorrectMassage(Exception):
     pass
 
@@ -26,7 +27,9 @@ async def errors_handler(event: ErrorEvent):
 
     #  MUST BE THE  LAST CONDITION (ЭТО УСЛОВИЕ ВСЕГДА ДОЛЖНО БЫТЬ В КОНЦЕ)
     if isinstance(event.exception, TelegramAPIError):
-        logging.exception(f"TelegramAPIError: {event.exception} \nUpdate: {event.update}")
+        logging.exception(
+            f"TelegramAPIError: {event.exception} \nUpdate: {event.update}"
+        )
         return True
 
     # At least you have tried.

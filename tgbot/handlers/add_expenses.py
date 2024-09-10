@@ -69,10 +69,10 @@ def _parce_message(message: str):
     """
     parce_result = re.match(r"([\d ]+) (.*)", message)
     if (
-            not parce_result
-            or not parce_result.group(0)
-            or not parce_result.group(1)
-            or not parce_result.group(2)
+        not parce_result
+        or not parce_result.group(0)
+        or not parce_result.group(1)
+        or not parce_result.group(2)
     ):
         raise NotCorrectMassage(
             "Не можу зрозуміти ваше повідомлення. Спробуйте ще раз, використовуючи формат, наприклад:\n "

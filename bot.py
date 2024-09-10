@@ -100,8 +100,7 @@ async def main():
     storage = get_storage(config)
 
     bot = Bot(
-        token=config.tg_bot.token,
-        default=DefaultBotProperties(parse_mode='HTML')
+        token=config.tg_bot.token, default=DefaultBotProperties(parse_mode="HTML")
     )
     dp = Dispatcher(storage=storage)
 
