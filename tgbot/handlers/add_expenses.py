@@ -6,11 +6,20 @@ from infrastructure.database.db import DataBase
 from tgbot.handlers.categories import Categories, Category
 from tgbot.handlers.errors import error_handler
 from tgbot.handlers.errors.error_handler import NotCorrectMassage
+# from tgbot.handlers.errors.error_handler import NotCorrectMassage
 from tgbot.misc.datetime_now import _get_now_formatted
 
 db = DataBase()
 expenses_router = Router()
 expenses_router.message()
+
+
+@dataclass
+class Expense:
+    id: int | None
+    owner: int
+    amount: int
+    category_name: Category
 
 
 @expenses_router.message()
@@ -22,20 +31,11 @@ async def add_expense(message: types.Message):
     """
     try:
         expense = add_expenses(message.text, message.from_user.id)
-        print(expense)
     except error_handler.NotCorrectMassage as e:
         await message.answer(str(e))
         return
     answer_message = f"Додана трана {expense.amount} грн на {expense.category_name}"
     await message.answer(answer_message)
-
-
-@dataclass
-class Expense:
-    id: int | None
-    owner: int
-    amount: int
-    category_name: Category
 
 
 def add_expenses(raw_message: str, owner: int):
@@ -69,10 +69,10 @@ def _parce_message(message: str):
     """
     parce_result = re.match(r"([\d ]+) (.*)", message)
     if (
-        not parce_result
-        or not parce_result.group(0)
-        or not parce_result.group(1)
-        or not parce_result.group(2)
+            not parce_result
+            or not parce_result.group(0)
+            or not parce_result.group(1)
+            or not parce_result.group(2)
     ):
         raise NotCorrectMassage(
             "Не можу зрозуміти ваше повідомлення. Спробуйте ще раз, використовуючи формат, наприклад:\n "
