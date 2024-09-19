@@ -28,7 +28,7 @@ async def add_profit(message: types.Message):
     :return: message.answer
     """
     try:
-        profit = add_profit(message.text, message.from_user.id)
+        profit = save_profit_to_db(message.text, message.from_user.id)
     except error_handler.NotCorrectMassage as e:
         await message.answer(str(e))
         return
@@ -57,7 +57,7 @@ def _parce_message(message: str):
     return total
 
 
-def save_profit_to_db(raw_message: str, owner: str) -> Profit:
+def save_profit_to_db(raw_message: str, owner: int) -> Profit:
     """
     Додавання витрати до дази даних
     :param owner:
