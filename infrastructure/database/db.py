@@ -110,7 +110,7 @@ class DataBase:
         parameters = (owner, amount, created, category_codename, raw_text)
         self.execute(sql, parameters=parameters, commit=True)
 
-    def add_profit(self, owner: str, amount: int, created, row_text: str):
+    def add_profit(self, owner: int, amount: int, created, row_text: str):
         sql = """
         INSERT INTO profit(owner,amount, created,row_text) VALUES (?,?,?,?)
         """
