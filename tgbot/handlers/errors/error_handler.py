@@ -1,3 +1,2 @@
 class NotCorrectMassage(Exception):
     pass
-

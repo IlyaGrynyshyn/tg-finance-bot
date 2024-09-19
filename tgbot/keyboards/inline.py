@@ -40,6 +40,28 @@ def simple_menu_keyboard():
     return keyboard.as_markup()
 
 
+def menu_keyboard():
+    keyboard = InlineKeyboardBuilder()
+    keyboard.max_width: int = 2
+    keyboard.button(text="💸 expenses 💸", callback_data="expenses")
+    keyboard.button(text="💰 profit 💰", callback_data="profit")
+    keyboard.button(text="📈 investment 📈", callback_data="investment")
+    return keyboard.as_markup()
+
+
+def expenses_menu_keyboard():
+    keyboard = InlineKeyboardBuilder()
+    keyboard.button(text="Expenses last 30 days", callback_data="expenses_30_days")
+    keyboard.button(text="Expenses last 7 days", callback_data="expenses_7_days")
+    return keyboard.as_markup()
+
+
+def come_back_keyboard():
+    keyboard = InlineKeyboardBuilder()
+    keyboard.button(text="Exit", callback_data="exit")
+    return keyboard.as_markup()
+
+
 # For a more advanced usage of callback_data, you can use the CallbackData factory
 class OrderCallbackData(CallbackData, prefix="order"):
     """

@@ -122,16 +122,20 @@ class DataBase:
         sql = f"DELETE FROM {table} WHERE id={row_id}"
         return self.execute(sql, commit=True)
 
-    def last_expenses(self, user_id: str):
+    def last_month_profit(self, user_id: int):
         sql = f"""
-        SELECT expense_id,owner, amount, category_codename FROM expense WHERE owner = {user_id} ORDER BY created DESC LIMIT 10
+        SELECT profit_id, owner, amount, row_text
+        FROM profit 
+        WHERE owner = {user_id} 
+        AND created >= date('now', 'localtime', '-1 month')
+        AND created < date('now', 'localtime', '+1 day')
+        ORDER BY created DESC
         """
         return self.execute(sql, fetchall=True)
 
-    def get_month_statistic(self, user_id: str):
+    def get_month_statistic(self, user_id: int):
         now = _get_now_datetime()
         first_day_of_month = f"{now.year}-{now.month:02}-01"
-        print(first_day_of_month)
         sql = f"""
         SELECT sum(amount) FROM expense where owner = {user_id} and date(created) >= date({first_day_of_month});
         """
@@ -142,6 +146,28 @@ class DataBase:
             return "В цьому місяці не має витрат"
         all_month_expenses = result[0]
         return f"Витрати в цьому місяці - {all_month_expenses} грн"
+
+    def get_week_statistic(self, user_id: int):
+        """
+        Отримує статистику витрат за останній тиждень для конкретного користувача.
+
+        :param user_id: Ідентифікатор користувача
+        :return: Строка з тижневою статистикою витрат
+        """
+        sql = f"""
+        SELECT SUM(amount) 
+        FROM expense 
+        WHERE owner = {user_id} 
+        AND created >= date('now', 'localtime', '-7 days')
+        AND created < date('now', 'localtime', '+1 day')
+        """
+        result = self.execute(sql, fetchone=True)
+
+        if result[0] is None:
+            return "За останній тиждень ще не має витрат"
+
+        weekly_expenses = result[0]
+        return f"За останній тиждень ви витратили - {weekly_expenses} грн"
 
     def get_today_statistic(self, user_id: str):
         sql = f"""

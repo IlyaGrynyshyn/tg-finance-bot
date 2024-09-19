@@ -23,7 +23,7 @@ async def on_startup(bot: Bot, admin_ids: list[int]):
     except Exception as e:
         logging.exception(e)
 
-    await bot.send_message(admin_ids[0], "Бот був запущений")
+    # await bot.send_message(admin_ids[0], "Бот був запущений")
 
 
 def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=None):

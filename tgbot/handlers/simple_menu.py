@@ -8,6 +8,7 @@ from tgbot.keyboards.inline import (
     simple_menu_keyboard,
     my_orders_keyboard,
     OrderCallbackData,
+    menu_keyboard,
 )
 
 menu_router = Router()
@@ -15,11 +16,11 @@ menu_router = Router()
 
 @menu_router.message(Command("menu"))
 async def show_menu(message: Message):
-    await message.answer("Виберіть пункт меню:", reply_markup=simple_menu_keyboard())
+    await message.answer("Виберіть пункт меню:", reply_markup=menu_keyboard())
 
 
 # We can use F.data filter to filter callback queries by data field from CallbackQuery object
-@menu_router.callback_query(F.data == "create_order")
+@menu_router.callback_query(F.data == "expenses")
 async def create_order(query: CallbackQuery):
     # Firstly, always answer callback query (as Telegram API requires)
     await query.answer()
@@ -40,7 +41,7 @@ ORDERS = [
 ]
 
 
-@menu_router.callback_query(F.data == "my_orders")
+@menu_router.callback_query(F.data == "profit")
 async def my_orders(query: CallbackQuery):
     await query.answer()
     await query.message.edit_text(

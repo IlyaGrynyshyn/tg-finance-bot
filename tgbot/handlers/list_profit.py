@@ -13,8 +13,7 @@ async def profit(message: types.Message):
     if not last_profit:
         await message.answer("Доходів ще не має")
     last_profit_row = [
-        f"{profit[2]} грн в категорії"
-        f"/del{profit[0]} для видалення"
+        f"{profit[2]} грн в категорії" f"/del{profit[0]} для видалення"
         for profit in last_profit
     ]
     answer_message = "Останні доходи:\n\n *" + "\n".join(last_profit_row)

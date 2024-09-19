@@ -6,6 +6,7 @@ from infrastructure.database.db import DataBase
 from tgbot.handlers.categories import Categories, Category
 from tgbot.handlers.errors import error_handler
 from tgbot.handlers.errors.error_handler import NotCorrectMassage
+
 # from tgbot.handlers.errors.error_handler import NotCorrectMassage
 from tgbot.misc.datetime_now import _get_now_formatted
 
@@ -69,10 +70,10 @@ def _parce_message(message: str):
     """
     parce_result = re.match(r"([\d ]+) (.*)", message)
     if (
-            not parce_result
-            or not parce_result.group(0)
-            or not parce_result.group(1)
-            or not parce_result.group(2)
+        not parce_result
+        or not parce_result.group(0)
+        or not parce_result.group(1)
+        or not parce_result.group(2)
     ):
         raise NotCorrectMassage(
             "Не можу зрозуміти ваше повідомлення. Спробуйте ще раз, використовуючи формат, наприклад:\n "

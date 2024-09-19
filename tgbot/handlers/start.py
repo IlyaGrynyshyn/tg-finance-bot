@@ -3,6 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram import types
 
 from infrastructure.database import db
+from tgbot.keyboards.inline import menu_keyboard
 
 db = db.DataBase()
 
@@ -21,4 +22,4 @@ async def bot_start(message: types.Message):
         )
         db.add_user(message.from_user.id)
 
-    await message.answer(text)
+    await message.answer(text, reply_markup=menu_keyboard())
