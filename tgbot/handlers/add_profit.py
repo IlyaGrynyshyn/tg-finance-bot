@@ -42,25 +42,22 @@ def _parce_message(message: str):
     :param message:
     :return: total, category
     """
-    parce_result = re.match(r"([\d ]+) (.*)", message)
+    parce_result = re.match(r"[+-]?(\d[\d ]*) (.*)", message)
     if (
             not parce_result
             or not parce_result.group(0)
             or not parce_result.group(1)
             or not parce_result.group(2)
     ):
-        print(parce_result)
-
         raise NotCorrectMassage(
             "Не можу зрозуміти ваше повідомлення. Спробуйте ще раз, використовуючи формат, наприклад:\n "
             "+600 кава "
         )
     total = parce_result.group(1)
-    print(total)
     return total
 
 
-def add_profit(raw_message: str, owner):
+def save_profit_to_db(raw_message: str, owner: str) -> Profit:
     """
     Додавання витрати до дази даних
     :param owner:
@@ -69,10 +66,10 @@ def add_profit(raw_message: str, owner):
     :return: Expense
     """
     parsed_message = _parce_message(raw_message)
-    inserted_row_id = db.add_profit(
+    db.add_profit(
         owner=owner,
-        amount=parsed_message[1],
+        amount=parsed_message,
         created=_get_now_formatted(),
         row_text=raw_message,
     )
-    return Profit(id=None, owner=owner, amount=parsed_message[1])
+    return Profit(id=None, owner=owner, amount=parsed_message)
