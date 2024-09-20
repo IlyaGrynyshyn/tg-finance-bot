@@ -1,8 +1,8 @@
 import logging
+import sqlite3
 from datetime import datetime
 
 from tgbot.misc.datetime_now import _get_now_datetime
-import sqlite3
 
 
 class DataBase:

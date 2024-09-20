@@ -1,13 +1,13 @@
-from aiogram import types, F
 import re
-from typing import NamedTuple, Optional
-from aiogram import Router
 from dataclasses import dataclass
 
+from aiogram import Router
+from aiogram import types, F
+
+from infrastructure.database.db import DataBase
 from tgbot.handlers.errors import error_handler
 from tgbot.handlers.errors.error_handler import NotCorrectMassage
 from tgbot.misc.datetime_now import _get_now_formatted
-from infrastructure.database.db import DataBase
 
 add_profit_router = Router()
 

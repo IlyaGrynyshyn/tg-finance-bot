@@ -5,7 +5,6 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.utils.formatting import as_section, as_key_value, as_marked_list
 
 from tgbot.keyboards.inline import (
-    simple_menu_keyboard,
     my_orders_keyboard,
     OrderCallbackData,
     menu_keyboard,

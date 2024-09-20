@@ -1,7 +1,6 @@
-from aiogram import Router
-from aiogram.filters import CommandStart
-from aiogram import types
 from dataclasses import dataclass
+
+from aiogram import Router
 
 from infrastructure.database import db
 

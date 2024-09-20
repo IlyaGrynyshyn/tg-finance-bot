@@ -1,6 +1,6 @@
 from aiogram import Router
-from aiogram.filters import CommandStart
 from aiogram import types
+from aiogram.filters import CommandStart
 
 from infrastructure.database import db
 from tgbot.keyboards.inline import menu_keyboard

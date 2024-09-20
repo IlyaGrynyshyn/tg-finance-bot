@@ -1,13 +1,12 @@
+from aiogram import types, Router, F
+
 from infrastructure.database.db import DataBase
-from tgbot.handlers.add_profit import save_profit_to_db
 from tgbot.keyboards.inline import (
     menu_keyboard,
     expenses_menu_keyboard,
-    come_back_keyboard, profit_menu_keyboard,
+    come_back_keyboard,
+    profit_menu_keyboard,
 )
-from aiogram import types, Router, F
-from tgbot.handlers.errors import error_handler
-
 
 menu_router = Router()
 
@@ -60,7 +59,9 @@ async def exit_handler(query: types.CallbackQuery):
 @menu_router.callback_query(F.data == "investment")
 async def investment_handler(query: types.CallbackQuery):
     await query.answer()
-    await query.message.edit_text(text="Це розділ поки що в розробці", reply_markup=come_back_keyboard())
+    await query.message.edit_text(
+        text="Це розділ поки що в розробці", reply_markup=come_back_keyboard()
+    )
 
 
 @menu_router.callback_query(F.data == "show_profit")
@@ -79,7 +80,9 @@ async def show_profit_handler(query: types.CallbackQuery):
 
 
 @menu_router.callback_query(F.data == "add_profit")
-async def add_profit_handler(query: types.CallbackQuery): # TODO: Тут реалізувати stast де будемо спочатку приймати кнопку, а потім парсити суму і назву
+async def add_profit_handler(
+    query: types.CallbackQuery,
+):  # TODO: Тут реалізувати stast де будемо спочатку приймати кнопку, а потім парсити суму і назву
     answer_message = "Загляшка"
     await query.answer()
     await query.message.edit_text(
