@@ -1,3 +1,6 @@
+from sqlalchemy import String, Column, Text
+from sqlalchemy.orm import relationship
+
 from infrastructure.database.models.base import Base, TimestampMixin, TableNameMixin
 
 

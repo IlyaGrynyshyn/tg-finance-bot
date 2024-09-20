@@ -1,7 +1,7 @@
 from typing import Optional
 
-from sqlalchemy import String
 from sqlalchemy import BIGINT, Boolean, true
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from infrastructure.database.models.base import Base, TimestampMixin, TableNameMixin
