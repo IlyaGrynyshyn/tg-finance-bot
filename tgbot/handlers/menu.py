@@ -59,3 +59,9 @@ async def show_month_profit(query: types.CallbackQuery):
 async def exit_handler(query: types.CallbackQuery):
     await query.answer(reply_markup=menu_keyboard())
     await query.message.edit_text(text="Обери операцію", reply_markup=menu_keyboard())
+
+
+@menu_router.callback_query(F.data == "investment")
+async def investment_handler(query: types.CallbackQuery):
+    await query.answer()
+    await query.message.edit_text(text="Це розділ поки що в розробці", reply_markup=come_back_keyboard())
