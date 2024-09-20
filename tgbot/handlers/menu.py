@@ -1,11 +1,13 @@
 from infrastructure.database.db import DataBase
+from tgbot.handlers.add_profit import save_profit_to_db
 from tgbot.keyboards.inline import (
     menu_keyboard,
     expenses_menu_keyboard,
-    come_back_keyboard,
+    come_back_keyboard, profit_menu_keyboard,
 )
 from aiogram import types, Router, F
-from aiogram.filters import Command
+from tgbot.handlers.errors import error_handler
+
 
 menu_router = Router()
 
@@ -42,16 +44,10 @@ async def show_week_expenses(query: types.CallbackQuery):
 
 @menu_router.callback_query(F.data == "profit")
 async def show_month_profit(query: types.CallbackQuery):
-    last_profit = db.last_month_profit(query.from_user.id)
-    if not last_profit:
-        await query.answer("Доходів ще не має")
-    last_profit_row = [
-        f"{profit[2]} грн" f"/del{profit[0]} для видалення" for profit in last_profit
-    ]
-    answer_message = "Останні доходи:\n\n *" + "\n".join(last_profit_row)
+    answer_message = "Виберіть операцію: "
     await query.answer()
     await query.message.edit_text(
-        text=answer_message, reply_markup=come_back_keyboard()
+        text=answer_message, reply_markup=profit_menu_keyboard()
     )
 
 
@@ -65,3 +61,27 @@ async def exit_handler(query: types.CallbackQuery):
 async def investment_handler(query: types.CallbackQuery):
     await query.answer()
     await query.message.edit_text(text="Це розділ поки що в розробці", reply_markup=come_back_keyboard())
+
+
+@menu_router.callback_query(F.data == "show_profit")
+async def show_profit_handler(query: types.CallbackQuery):
+    last_profit = db.last_month_profit(query.from_user.id)
+    if not last_profit:
+        await query.answer("Доходів ще не має")
+    last_profit_row = [
+        f"{profit[2]} грн" f"/del{profit[0]} для видалення" for profit in last_profit
+    ]
+    answer_message = "Останні доходи:\n\n *" + "\n".join(last_profit_row)
+    await query.answer()
+    await query.message.edit_text(
+        text=answer_message, reply_markup=come_back_keyboard()
+    )
+
+
+@menu_router.callback_query(F.data == "add_profit")
+async def add_profit_handler(query: types.CallbackQuery): # TODO: Тут реалізувати stast де будемо спочатку приймати кнопку, а потім парсити суму і назву
+    answer_message = "Загляшка"
+    await query.answer()
+    await query.message.edit_text(
+        text=answer_message, reply_markup=come_back_keyboard()
+    )
