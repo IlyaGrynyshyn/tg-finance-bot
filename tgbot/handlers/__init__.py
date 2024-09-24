@@ -10,10 +10,10 @@ from .start import start_router
 routers_list = [
     start_router,
     menu_router,
-    expenses_router,
+    add_profit_router,
     delete_expense_router,
+    expenses_router,
     echo_router,
-    # add_profit_router,
 ]
 
 __all__ = [
