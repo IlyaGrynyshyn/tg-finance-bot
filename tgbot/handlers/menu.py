@@ -77,14 +77,3 @@ async def show_profit_handler(query: types.CallbackQuery):
     await query.message.edit_text(
         text=answer_message, reply_markup=come_back_keyboard()
     )
-
-
-@menu_router.callback_query(F.data == "add_profit")
-async def add_profit_handler(
-    query: types.CallbackQuery,
-):  # TODO: Тут реалізувати stast де будемо спочатку приймати кнопку, а потім парсити суму і назву
-    answer_message = "Загляшка"
-    await query.answer()
-    await query.message.edit_text(
-        text=answer_message, reply_markup=come_back_keyboard()
-    )

@@ -59,7 +59,6 @@ def expenses_menu_keyboard():
 def profit_menu_keyboard():
     keyboard = InlineKeyboardBuilder()
     keyboard.button(text="show profit", callback_data="show_profit")
-    keyboard.button(text="add profit", callback_data="add_profit")
     return keyboard.as_markup()
 
 
