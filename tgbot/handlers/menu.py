@@ -29,14 +29,23 @@ async def show_expenses(query: types.CallbackQuery):
 
 @menu_router.callback_query(F.data == "expenses_30_days")
 async def show_month_expenses(query: types.CallbackQuery):
-    text = db.get_month_statistic(query.from_user.id)
+    result = db.get_month_statistic(query.from_user.id)
+    if not result[0]:
+        return "В цьому місяці не має витрат"
+    all_month_expenses = result[0]
+    text = f"Витрати в цьому місяці - {all_month_expenses} грн"
     await query.answer()
     await query.message.edit_text(text=text, reply_markup=come_back_keyboard())
 
 
 @menu_router.callback_query(F.data == "expenses_7_days")
 async def show_week_expenses(query: types.CallbackQuery):
-    text = db.get_week_statistic(query.from_user.id)
+    result = db.get_week_statistic(query.from_user.id)
+    if result[0] is None:
+        return "За останній тиждень ще не має витрат"
+
+    weekly_expenses = result[0]
+    text = f"За останній тиждень ви витратили - {weekly_expenses} грн"
     await query.answer()
     await query.message.edit_text(text=text, reply_markup=come_back_keyboard())
 

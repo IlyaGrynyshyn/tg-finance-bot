@@ -137,15 +137,12 @@ class DataBase:
         now = _get_now_datetime()
         first_day_of_month = f"{now.year}-{now.month:02}-01"
         sql = f"""
-        SELECT sum(amount) FROM expense where owner = {user_id} and date(created) >= date({first_day_of_month});
+        SELECT sum(amount) 
+        FROM expense 
+        where owner = {user_id} and date(created) >= date({first_day_of_month});
         """
-        f""""""
-
         result = self.execute(sql, fetchone=True)
-        if not result[0]:
-            return "В цьому місяці не має витрат"
-        all_month_expenses = result[0]
-        return f"Витрати в цьому місяці - {all_month_expenses} грн"
+        return result
 
     def get_week_statistic(self, user_id: int):
         """
@@ -162,12 +159,7 @@ class DataBase:
         AND created < date('now', 'localtime', '+1 day')
         """
         result = self.execute(sql, fetchone=True)
-
-        if result[0] is None:
-            return "За останній тиждень ще не має витрат"
-
-        weekly_expenses = result[0]
-        return f"За останній тиждень ви витратили - {weekly_expenses} грн"
+        return result
 
     def get_today_statistic(self, user_id: str):
         sql = f"""
